@@ -7,14 +7,53 @@
 </head>
 <body>
   <h1>Jeu de la Vie</h1>
+  
   <canvas id="gameCanvas"></canvas>
-  <div id="controls">
-    <label>Hauteur: <input id="height" type="number" value="20"></label>
-    <label>Largeur: <input id="width" type="number" value="20"></label>
-    <label>Cycles/sec: <input id="speed" type="number" value="5"></label>
-    <button id="startBtn">▶️ Démarrer</button>
-    <button id="pauseBtn">⏸️ Pause</button>
+
+  <div id="controls" class="controls-card">
+    <div class="controls-grid">
+      <label for="height" class="control-label">Hauteur
+        <input id="height" type="number" value="50" class="input-field" min="5" max="200">
+      </label>
+      <label for="width" class="control-label">Largeur
+        <input id="width" type="number" value="50" class="input-field" min="5" max="200">
+      </label>
+      <label for="speed" class="control-label">Cycles / sec
+        <input id="speed" type="number" value="60" class="input-field" min="1" max="500">
+      </label>
+      <label for="colorPickerdead" class="control-label">Cellule morte
+        <input type="color" id="colorPickerdead" value="#000000">
+      </label>
+      <label for="colorPickeralive" class="control-label">Cellule vivante
+        <input type="color" id="colorPickeralive" value="#ffffff">
+      </label>
+    </div>
+
+    <div class="button-container">
+      <button id="startBtn" class="btn">▶️ Démarrer</button>
+      <button id="pauseBtn" class="btn">⏸️ Pause</button>
+    </div>
+
+    <!-- 🚀 Nouveaux boutons physiques -->
+    <div class="button-container secondary">
+      <button id="drawModeBtn" class="btn secondary-btn">✏️ Dessiner</button>
+      <button id="eraseBtn" class="btn secondary-btn">🧹 Effacer</button>
+      <button id="randomBtn" class="btn secondary-btn">🎲 Remplir aléatoirement</button>
+      <button id="resetBtn" class="btn secondary-btn danger">♻️ Réinitialiser</button>
+    </div>
+
+    <p class="tip">
+      🔧 Raccourcis : <kbd>D</kbd> = Dessiner / <kbd>W</kbd> = Effacer / <kbd>R</kbd> = Aléatoire / <kbd>Entrée</kbd> = Lancer
+    </p>
   </div>
+
   <script src="script.js"></script>
+  <script>
+    // Branchements simples (si pas encore faits dans script.js)
+    document.getElementById("drawModeBtn").addEventListener("click", () => window.gameDebug?.drawMode?.());
+    document.getElementById("eraseBtn").addEventListener("click", () => window.gameDebug?.wipeGrid?.());
+    document.getElementById("randomBtn").addEventListener("click", () => window.gameDebug?.randomFill?.());
+    document.getElementById("resetBtn").addEventListener("click", () => window.gameDebug?.createGrid?.(true));
+  </script>
 </body>
 </html>
