@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- Initialisation par défaut ---
-  createGrid(true); // grille aléatoire
+  createGrid(false); // grille aléatoire
   drawGrid();
 
   // Simulation automatique
