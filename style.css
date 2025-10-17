@@ -5,7 +5,7 @@ body {
 }
 
 canvas {
-  border: 1px solid #333;
+  border: 5px dashed green;
 }
 
 #controls {
