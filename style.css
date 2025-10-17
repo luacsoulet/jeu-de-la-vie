@@ -7,3 +7,11 @@ body {
 canvas {
   border: 1px solid #333;
 }
+
+#controls {
+  margin: 20px;
+}
+
+#controls label {
+  margin: 0 10px;
+}
