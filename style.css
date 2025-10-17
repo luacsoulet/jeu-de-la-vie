@@ -5,7 +5,8 @@ body {
 }
 
 canvas {
-  border: 3px solid purple;
+  border: 3px solid;
+  border-radius: 10px;
 }
 
 

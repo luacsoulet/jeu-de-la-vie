@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (newRows !== rows || newCols !== cols) {
       rows = newRows;
       cols = newCols;
-      createGrid(true);
+      createGrid(false);
       drawGrid();
     }
 
