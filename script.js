@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const speedInput = document.getElementById("speed");
   const startBtn = document.getElementById("startBtn");
   const pauseBtn = document.getElementById("pauseBtn");
+  const colordead = document.getElementById("colorPickerdead");
+  const coloralive = document.getElementById("colorPickeralive");
 
   // --- Variables du jeu ---
   let rows = parseInt(heightInput?.value || 50, 10);
@@ -48,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        ctx.fillStyle = grid[r][c] ? "#fff" : "#000";
+        ctx.fillStyle = grid[r][c] ? coloralive.value : colordead.value;
         ctx.fillRect(c * cellSize, r * cellSize, cellSize, cellSize);
       }
     }
