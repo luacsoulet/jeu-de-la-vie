@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let animationFrameId = null;
   const wrapEdges = true;
   let cachedDead = colordead.value, cachedAlive = coloralive.value;
+  let isMouseDown = false; // état pour dessiner en maintenant le clic
+  let lastPaintedKey = null; // évite de repeindre la même case à répétition pendant le glisser
 
   // ⚙️ Initialisation
   const resizeCanvas = () => {
@@ -130,6 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const startSimulation = () => {
     if (running) return;
     running = true;
+    drawingMode = false; // le lancement de la simulation désactive le mode dessin
     updateUIState("start");
     lastFrameTime = 0;
     animationFrameId = requestAnimationFrame(renderLoop);
@@ -154,6 +157,8 @@ document.addEventListener("DOMContentLoaded", () => {
       case "pause": pauseBtn.classList.add("active"); break;
       case "draw": drawBtn.classList.add("active"); break;
     }
+    // Si le mode dessin est actif, on s'assure que le bouton reste visuellement actif
+    if (drawingMode) drawBtn.classList.add("active");
   };
 
   // 🖱️ Événements
@@ -175,16 +180,52 @@ document.addEventListener("DOMContentLoaded", () => {
   resetBtn.onclick = () => { wipeGrid(); resetBtn.classList.add("active"); setTimeout(() => resetBtn.classList.remove("active"), 300); };
 
   // 🖋️ Mode dessin
-  canvas.addEventListener("click", (e) => {
-    if (!drawingMode) return;
+  // Utilitaire pour récupérer la cellule visée par un événement souris
+  const getCellFromEvent = (e) => {
     const rect = canvas.getBoundingClientRect();
     const x = Math.floor((e.clientX - rect.left) / cellSize);
     const y = Math.floor((e.clientY - rect.top) / cellSize);
+    return { x, y };
+  };
+
+  // Clic simple (toggle)
+  canvas.addEventListener("click", (e) => {
+    if (!drawingMode) return;
+    const { x, y } = getCellFromEvent(e);
     if (grid[y] && grid[y][x] !== undefined) {
       grid[y][x] = grid[y][x] ? 0 : 1;
       drawCell(y, x, grid[y][x]);
     }
   });
+
+  // Maintien du clic + déplacement pour dessiner en continu (pose des cellules vivantes)
+  canvas.addEventListener("mousedown", (e) => {
+    if (!drawingMode) return;
+    isMouseDown = true;
+    lastPaintedKey = null;
+    const { x, y } = getCellFromEvent(e);
+    if (grid[y] && grid[y][x] !== undefined) {
+      grid[y][x] = 1;
+      drawCell(y, x, 1);
+      lastPaintedKey = `${x},${y}`;
+    }
+  });
+
+  canvas.addEventListener("mousemove", (e) => {
+    if (!drawingMode || !isMouseDown) return;
+    const { x, y } = getCellFromEvent(e);
+    const key = `${x},${y}`;
+    if (key === lastPaintedKey) return;
+    if (grid[y] && grid[y][x] !== undefined) {
+      grid[y][x] = 1;
+      drawCell(y, x, 1);
+      lastPaintedKey = key;
+    }
+  });
+
+  const stopDrawing = () => { isMouseDown = false; lastPaintedKey = null; };
+  canvas.addEventListener("mouseup", stopDrawing);
+  canvas.addEventListener("mouseleave", stopDrawing);
 
   // 🎚️ Inputs
   speedInput.oninput = () => cyclesPerSec = +speedInput.value || 1;
