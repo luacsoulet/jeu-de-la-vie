@@ -8,14 +8,28 @@
 <body>
   <h1>Jeu de la Vie</h1>
   <canvas id="gameCanvas"></canvas>
-  <div id="controls">
-    <label>Hauteur: <input id="height" type="number" value="20"></label>
-    <label>Largeur: <input id="width" type="number" value="20"></label>
-    <label>Cycles/sec: <input id="speed" type="number" value="5"></label>
-    <label>Couleur cellule morte: <input type="color" id="colorPickerdead" value="#000000"></label>
-    <label>Couleur cellule vivante: <input type="color" id="colorPickeralive" value="#000000"></label>
-    <button id="startBtn">▶️ Démarrer</button>
-    <button id="pauseBtn">⏸️ Pause</button>
+  <div id="controls" class="controls-card">
+    <div class="controls-grid">
+      <label for="height" class="control-label">Hauteur
+        <input id="height" type="number" value="20" class="input-field" min="1" aria-label="Hauteur de la grille">
+      </label>
+      <label for="width" class="control-label">Largeur
+        <input id="width" type="number" value="20" class="input-field" min="1" aria-label="Largeur de la grille">
+      </label>
+      <label for="speed" class="control-label">Cycles / sec
+        <input id="speed" type="number" value="5" class="input-field" min="1" max="60" aria-label="Vitesse en cycles par seconde">
+      </label>
+      <label for="colorPickerdead" class="control-label">Cellule morte
+        <input type="color" id="colorPickerdead" value="#000000" aria-label="Couleur cellule morte">
+      </label>
+      <label for="colorPickeralive" class="control-label">Cellule vivante
+        <input type="color" id="colorPickeralive" value="#000000" aria-label="Couleur cellule vivante">
+      </label>
+    </div>
+    <div class="button-container">
+      <button id="startBtn" class="btn" aria-label="Démarrer la simulation">▶️ Démarrer</button>
+      <button id="pauseBtn" class="btn" aria-label="Mettre en pause la simulation">⏸️ Pause</button>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>

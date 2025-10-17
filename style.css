@@ -11,13 +11,116 @@ canvas {
 
 
 #controls {
-  margin: 20px;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
+  max-width: 560px;
+  width: 100%;
 }
 
-#controls label {
-  margin: 0 10px;
+.controls-card {
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.control-label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: 0.95rem;
+  color: #333;
+  gap: 6px;
+}
+
+#controls label { margin: 0; }
+
+#controls button {
+  min-width: 120px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
+  font-size: 1rem;
+  color: #222;
+  background-color: #f7f7f7;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+#controls button:hover { background-color: #efefef; }
+#controls button:active { transform: translateY(1px); }
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.input-field {
+  height: 40px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  color: #111827;
+  background: #ffffff;
+  outline: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02) inset;
+}
+
+.input-field:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Inputs de type color */
+#controls input[type="color"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 48px;
+  height: 40px;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02) inset;
+}
+
+#controls input[type="color"]:hover { filter: brightness(0.98); }
+#controls input[type="color"]:active { transform: translateY(1px); }
+#controls input[type="color"]:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* WebKit: personnalisation du swatch */
+#controls input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 4px;
+  border-radius: 8px;
+}
+
+#controls input[type="color"]::-webkit-color-swatch {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+/* Firefox */
+#controls input[type="color"]::-moz-color-swatch {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
 }
