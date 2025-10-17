@@ -5,8 +5,9 @@ body {
 }
 
 canvas {
-  border: 5px dashed green;
+  border: 3px solid purple;
 }
+
 
 #controls {
   margin: 20px;
